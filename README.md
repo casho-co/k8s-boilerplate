@@ -24,6 +24,7 @@ skaffold dev
 
 ## CLEAN UP 
 ```
+kubectl delete -f k8s/manifests/volumes/
 skaffold delete
 ```
 
