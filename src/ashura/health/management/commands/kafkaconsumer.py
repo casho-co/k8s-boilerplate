@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from health.kafka_utils import KafkaConsumer
+from health.kafka.consumer import KafkaConsumer
 
 class Command(BaseCommand):
     help = "Starts the Kafka consumer"
