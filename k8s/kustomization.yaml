@@ -8,12 +8,15 @@ resources:
   - ./manifests/ashura/ashura-env.yaml
   - ./manifests/zetsu/zetsu-env.yaml
   
-  - ./manifests/ashura/ashura-db.deployment.yaml
+  - ./manifests/ashura/ashura-db.deployment.yaml  
   - ./manifests/zetsu/zetsu-db.deployment.yaml
+
+  - ./manifests/ashura/ashura-db.job.yaml
 
   - ./manifests/indra/indra-app.deployment.yaml
   - ./manifests/zetsu/zetsu-app.deployment.yaml
   - ./manifests/ashura/ashura-app.deployment.yaml
   
+  - ./manifests/ashura/ashura-consumer.deployment.yaml
+
   - ./manifests/ingress.yaml
-  - ./manifests/ashura/ashura-db.job.yaml
