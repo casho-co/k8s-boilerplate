@@ -9,7 +9,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/mnt/zetsu/data"
+    path: "/tmp/zetsu/data"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

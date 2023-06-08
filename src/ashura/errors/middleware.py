@@ -15,7 +15,6 @@ class ErrorHandlingMiddleware:
         if isinstance(exception, CustomError):
           return JsonResponse({ 'errors': exception.serialize_errors()}, safe=False, status=exception.status_code)
         else: 
-          print("else ", exception)
           return JsonResponse([{'message': 'something went wrong.'}],safe=False, status=400)  
 
     
