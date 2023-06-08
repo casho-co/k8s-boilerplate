@@ -1,5 +1,8 @@
-from confluent_kafka import Consumer, Producer
+import logging
 from django.conf import settings
+from confluent_kafka import Consumer, Producer
+
+logger = logging.getLogger("ashura_kafka")
 
 class Singleton(type):
     _instances = {}
@@ -24,9 +27,9 @@ class KafkaConsumer:
             if message is None:
                 continue
             if message.error():
-                print(f'Error occurred while consuming from Kafka: {message.error().str()}')
+                logger.error(f'Error occurred while consuming from Kafka: {message.error().str()}')
                 continue
-            print(f'Received message: {message.value().decode("utf-8")}')
+            logger.info(f'Received message: {message.value().decode("utf-8")}')
             # Process the message as needed
 
     def close(self):
@@ -38,8 +41,10 @@ class KafkaProducer(metaclass=Singleton):
         self.producer = Producer({'bootstrap.servers': settings.KAFKA_BOOTSTRAP_SERVERS})
 
     def send_message(self, message):
-        self.producer.produce('health', message.encode('utf-8'))
-        print("yeaa flushing")
-        self.producer.flush()
-        print("yes flushed")
+        try:
+            self.producer.produce('health', message.encode('utf-8'))
+            self.producer.flush()
+            logger.info(f'Message sent to Kafka: {message}')
+        except Exception as e:
+            logger.error(f'Error occurred while producing to Kafka: {e}')
 
