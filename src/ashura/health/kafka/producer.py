@@ -16,13 +16,18 @@ class Singleton(type):
 class KafkaProducer(metaclass=Singleton):
     def __init__(self):
         self.producer = Producer({'bootstrap.servers': settings.KAFKA_BOOTSTRAP_SERVERS})
+        
+    def acked(self, err, msg):
+        if err is not None:
+            logger.error(f'Failed to deliver message: {msg.value()}: {err.str()}')
+        else:
+            logger.info(f'Message produced: {msg.value()}')
 
     def send_message(self, topic, message):
         serialized_message = serialize_message(message)
 
         try:
-            self.producer.produce(topic, serialized_message.encode('utf-8'))
+            self.producer.produce(topic, serialized_message.encode('utf-8'), callback=self.acked)
             self.producer.flush()
-            logger.info(f'Message sent to Kafka: {serialized_message}')
         except Exception as e:
             logger.error(f'Error occurred while producing to Kafka: {e}')
