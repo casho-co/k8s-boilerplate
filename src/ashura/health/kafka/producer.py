@@ -3,7 +3,7 @@ from django.conf import settings
 from confluent_kafka import Producer
 from .serializer import serialize_message
 
-logger = logging.getLogger("ashura_kafka_producer")
+logger = logging.getLogger("ashura_app")
 
 class Singleton(type):
     _instances = {}
@@ -18,7 +18,7 @@ class KafkaProducer(metaclass=Singleton):
         self.producer = Producer({'bootstrap.servers': settings.KAFKA_BOOTSTRAP_SERVERS})
 
     def send_message(self, topic, message):
-        serialized_message = message
+        serialized_message = serialize_message(message)
 
         try:
             self.producer.produce(topic, serialized_message.encode('utf-8'))

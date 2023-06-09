@@ -160,6 +160,11 @@ LOGGING = {
             'level': LOG_LEVEL,
             'propagate': False,
         },
+        'ashura_consumer': {
+            'handlers': ['console'],
+            'level': LOG_LEVEL,
+            'propagate': False,
+        },
     },
     'root': {
         'handlers': [],

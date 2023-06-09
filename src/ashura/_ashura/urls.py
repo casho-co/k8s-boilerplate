@@ -28,7 +28,7 @@ def message(request):
   logger.info("Request ID {0}".format(request.headers['X-Request-Id']))
   logger.info("Message view requested.")
   producer = KafkaProducer()
-  producer.send_message(TOPIC_HEALTH, "kafka message")
+  producer.send_message(TOPIC_HEALTH, {"message": "kafka message"})
   return JsonResponse({ "message": "Ashura V1"}, status=200)
 
 def error(request):

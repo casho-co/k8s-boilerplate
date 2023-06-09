@@ -4,7 +4,7 @@ from confluent_kafka import Consumer
 from .serializer import deserialize_message
 from .topics import TOPIC_HEALTH
 
-logger = logging.getLogger("ashura_kafka_consumer")
+logger = logging.getLogger("ashura_consumer")
 
 class KafkaConsumer:
     def __init__(self):
@@ -23,8 +23,8 @@ class KafkaConsumer:
             if message.error():
                 logger.error(f'Error occurred while consuming from Kafka: {message.error().str()}')
                 continue
-            print(f'message: {message.value()}')
-            deserialized_message = message.value().decode('utf-8')
+              
+            deserialized_message = deserialize_message(message.value().decode('utf-8'))
 
             logger.info(f'Received message: {deserialized_message}')
             # Process the message as needed
