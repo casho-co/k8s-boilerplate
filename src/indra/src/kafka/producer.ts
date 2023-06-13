@@ -10,8 +10,7 @@ export class KafkaProducer{
     
     constructor()
     {
-        const kafka = new Kafka(
-        {
+        const kafka = new Kafka({
             brokers:[KAFKA_BROKER]
         })
         this.producer=kafka.producer()      
