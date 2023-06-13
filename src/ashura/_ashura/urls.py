@@ -24,25 +24,28 @@ from health.kafka.topics import TOPIC_HEALTH
 
 logger = logging.getLogger("ashura_app")
 
+
 def message(request):
-    
+
     logger.info("Request ID {0}".format(request.headers['X-Request-Id']))
     logger.info("Message view requested.")
-    
+
     producer = KafkaProducer()
     producer.send_message(TOPIC_HEALTH, {"message": "kafka message"})
-    
-    return JsonResponse({ "message": "Ashura V1"}, status=200)
+
+    return JsonResponse({"message": "Ashura V1"}, status=200)
+
 
 def error(request):
     logger.info("Request ID {0}".format(request.headers['X-Request-Id']))
     logger.error("Error view requested.")
     raise DatabaseConnectionError()
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("api/ashura/", message),
     path("api/ashura/error/", error),
     path("health/", include("health.urls"))
-    
+
 ]

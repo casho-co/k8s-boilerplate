@@ -1,8 +1,13 @@
 {
   "[python]": {
   "editor.tabSize": 4,
+  "editor.defaultFormatter": "ms-python.python"
   },
   "[typescript]": {
-    "editor.tabSize": 2
-  }
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
 }

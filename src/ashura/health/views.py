@@ -5,6 +5,7 @@ from django.http import JsonResponse
 
 logger = logging.getLogger("ashura_app")
 
+
 def index(request):
     logger.info("Index view requested.")
-    return JsonResponse({ "message": "OK"}, status=200)
+    return JsonResponse({"message": "OK"}, status=200)

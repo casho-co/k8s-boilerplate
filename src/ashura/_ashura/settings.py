@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     'health',
 ]
 
@@ -94,7 +94,7 @@ DATABASES = {
         "PASSWORD": POSTGRES_CONFIG["password"],
         "HOST": POSTGRES_CONFIG["host"],
         "PORT": POSTGRES_CONFIG["port"],
-        'OPTIONS': { 'connect_timeout': 3, }
+        'OPTIONS': {'connect_timeout': 3, }
     }
 }
 
@@ -172,7 +172,6 @@ LOGGING = {
     },
 }
 
-# KAFKA 
+# KAFKA
 
 KAFKA_BOOTSTRAP_SERVERS = 'kafka-service:9092'
-
