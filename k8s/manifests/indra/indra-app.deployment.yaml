@@ -19,6 +19,9 @@ spec:
           image: indra/nodejs
           ports:
             - containerPort: 3000 # port exposed by the container
+          env:
+            - name: KAFKA_BROKER
+              value: "kafka-service:9092"
 ---
 apiVersion: v1
 kind: Service

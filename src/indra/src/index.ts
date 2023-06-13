@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { morganMiddleware, logger, errorHandler, DatabaseConnectionError } from '@cashoco/common';
 import { KafkaProducer } from './kafka/producer';
-import { Topic_health } from "./kafka/topics";
+import { TOPIC_HEALTH } from "./kafka/topics";
 import { KafkaConsumer } from './kafka/consumer';
 
 const app = express();
@@ -13,7 +13,7 @@ app.get('/api/indra/', (req: Request, res: Response) => {
   logger.info(`request ID ${req.header('x-request-id')}`);
   logger.debug('debug info');
   const producer = KafkaProducer.getInstance();
-  producer.sendMessage(Topic_health, JSON.stringify({ eventType: 'NodeEvent' }))
+  producer.sendMessage(TOPIC_HEALTH, JSON.stringify({ eventType: 'NodeEvent' }))
   res.send('Indra V1');
 });
 
@@ -30,4 +30,4 @@ app.listen(port, () => {
 });
 
 
-new KafkaConsumer().Process_message()
+new KafkaConsumer().processMessage();

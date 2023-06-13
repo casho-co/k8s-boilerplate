@@ -1,6 +1,8 @@
 import { logger } from "@cashoco/common";
 import { Kafka, Producer, ProducerRecord } from "kafkajs";
 
+const KAFKA_BROKER :string = process.env.KAFKA_BROKER!;
+
 export class KafkaProducer{
     
     private static instance: KafkaProducer;
@@ -8,16 +10,18 @@ export class KafkaProducer{
     
     constructor()
     {
-        const kafka = new Kafka({
-            brokers:['kafka-service:9092']
-            })
+        const kafka = new Kafka(
+        {
+            brokers:[KAFKA_BROKER]
+        })
         this.producer=kafka.producer()      
     }
+
     public static getInstance(): KafkaProducer {
         if(!KafkaProducer.instance){
             KafkaProducer.instance= new KafkaProducer();
-         }
-         return KafkaProducer.instance;
+        }
+        return KafkaProducer.instance;
   }
     
     public sendMessage = async ( topic:string, message: string)=>{
@@ -29,7 +33,11 @@ export class KafkaProducer{
         }
         
         await this.producer.send(payload)
-                            .then(()=>{logger.info(`Message sent to Kafka: ${message}`)})
-                            .catch(err=>{ logger.error(`Error occurred while producing to Kafka: ${err}`)})
+            .then(()=>{
+                logger.info(`Message sent to Kafka: ${message}`);
+            })
+            .catch(err=>{ 
+                logger.error(`Error occurred while producing to Kafka: ${err}`);
+            })
    }
 }

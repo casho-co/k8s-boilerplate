@@ -1,1 +1,1 @@
-export const Topic_health = 'health'
+export const TOPIC_HEALTH = 'health'
