@@ -2,7 +2,6 @@ import express, { Request, Response } from 'express';
 import { morganMiddleware, logger, errorHandler, DatabaseConnectionError } from '@cashoco/common';
 import { KafkaProducer } from './kafka/producer';
 import { TOPIC_HEALTH } from "./kafka/topics";
-import { KafkaConsumer } from './kafka/consumer';
 
 const app = express();
 const port = 3000;
@@ -30,4 +29,3 @@ app.listen(port, () => {
 });
 
 
-new KafkaConsumer().processMessage();
