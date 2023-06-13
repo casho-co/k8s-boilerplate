@@ -10,9 +10,9 @@ class ErrorHandlingMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):     
-      response = self.get_response(request)
-      return response
-      
+        response = self.get_response(request)
+        return response
+    
     def process_exception(self, request, exception):
         if isinstance(exception, CustomError):
             logger.error(msg=f'Error occurred while processing request: {exception}')

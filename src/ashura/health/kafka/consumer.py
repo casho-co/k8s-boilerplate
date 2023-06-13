@@ -7,6 +7,9 @@ from .topics import TOPIC_HEALTH
 logger = logging.getLogger("ashura_consumer")
 
 class KafkaConsumer:
+    
+    
+    
     def __init__(self):
         self.consumer = Consumer({
             'bootstrap.servers': settings.KAFKA_BOOTSTRAP_SERVERS,
@@ -23,7 +26,7 @@ class KafkaConsumer:
             if message.error():
                 logger.error(f'Error occurred while consuming from Kafka: {message.error().str()}')
                 continue
-              
+            
             deserialized_message = deserialize_message(message.value().decode('utf-8'))
 
             logger.info(f'Received message: {deserialized_message}')
