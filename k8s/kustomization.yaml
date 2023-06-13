@@ -18,5 +18,6 @@ resources:
   - ./manifests/ashura/ashura-app.deployment.yaml
   
   - ./manifests/ashura/ashura-consumer.deployment.yaml
+  - ./manifests/zetsu/zetsu-consumer.deployment.yaml
 
   - ./manifests/ingress.yaml

@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zetsu-consumer-deployment
+  labels:
+    app: zetsu-consumer
+spec:
+  replicas: 1 # number of replicas to run
+  selector:
+    matchLabels:
+      app: zetsu-consumer
+  template:
+    metadata:
+      labels:
+        app: zetsu-consumer
+    spec:
+      initContainers:
+        - name: zetsu-db-check
+          image: mongo:5
+          command: ['/bin/bash', '-c', 
+            "until mongo 
+              --host $MONGO_HOST 
+              --port $MONGO_PORT 
+              --eval 
+              'quit(db.runCommand({ ping: 1 }).ok ? 0 : 1)' --quiet; 
+            do 
+              echo 'Waiting for MongoDB'; 
+              sleep 2; 
+            done;
+            echo 'MongoDB is ready!';"
+          ]
+
+          envFrom:
+            - configMapRef:
+                name: zetsu-config
+      containers:
+        - name: zetsu-consumer
+          image: zetsu/nodejs
+          command: ["npm","run","consumer"]
+          envFrom:
+            - configMapRef:
+                name: zetsu-config
+          env:
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: zetsu-secret
+                  key: MONGO_INITDB_ROOT_PASSWORD
+          
