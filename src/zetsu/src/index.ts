@@ -15,8 +15,8 @@ app.use('/health', healthRouter);
 app.get('/api/zetsu/', (req: Request, res: Response) => {
   logger.info(`request ID ${req.header('x-request-id')}`);
   logger.debug('debug info');
-  const producer= new KafkaProducer()
-  producer.sendMessage(TOPIC_HEALTH,JSON.stringify({type:"new user",}))
+  const producer = new KafkaProducer();
+  producer.sendMessage(TOPIC_HEALTH, JSON.stringify({ type: 'new user' }));
   res.send('Zetsu V1');
 });
 
