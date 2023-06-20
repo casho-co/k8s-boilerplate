@@ -1,0 +1,38 @@
+# casho
+
+casho is a django library that provides custom error handling functionality for Django applications.
+
+## Installation
+
+# You can install casho using pip:
+
+shell
+pip install casho
+
+# After installing add in the Setting.py
+
+ settings.py
+
+INSTALLED_APPS = [
+    <!-- # Other apps... -->
+    'casho',
+]
+
+# To use the middlewares 
+ 
+settings.py
+
+MIDDLEWARE = [
+    # Other apps...
+    'casho.ErrorHandlingMiddleware',
+    'casho.HealthCheckMiddleware'
+]
+
+# To use other classes 
+
+Import casho
+
+casho.IErrorStruct
+casho.DatabaseConnectionError
+casho.CustomError
+
