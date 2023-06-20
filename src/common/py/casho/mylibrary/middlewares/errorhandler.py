@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from errors import CustomError
+from ..errors.custom_error import CustomError
 
 class ErrorHandlingMiddleware:
     def __init__(self, get_response):
