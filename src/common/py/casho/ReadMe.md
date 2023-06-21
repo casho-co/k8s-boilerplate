@@ -36,3 +36,10 @@ casho.IErrorStruct
 casho.DatabaseConnectionError
 casho.CustomError
 
+# To create Kafka consumer and producer 
+
+producer = casho.ProducerFactory.get_producer( metadata: IProducerConfiguration)
+producer.send_message( metadata: IMetadata, message: IEvent)
+
+consumer = casho.ConsumerFactory.get_consumer(metadata: ConsumerConfiguration)
+consumer.subscribe( topic: str, callback: Callable[[IEvent], None])

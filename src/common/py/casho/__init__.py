@@ -1,3 +1,3 @@
-default_app_config = 'casho.mylibrary.apps.MyAppConfiguration'
+default_app_config = 'casho.casho.apps.MyAppConfiguration'
 
-from .mylibrary import  ErrorHandlingMiddleware,HealthCheckMiddleware,DatabaseConnectionError,IErrorStruct,CustomError,ConsumerFactory ,ProducerFactory , ConsumerConfiguration , IConsumer ,IEvent,IMetadata,IProducer,IProducerConfiguration
+from .casho import  ErrorHandlingMiddleware,HealthCheckMiddleware,DatabaseConnectionError,IErrorStruct,CustomError,ConsumerFactory ,ProducerFactory , ConsumerConfiguration , IConsumer ,IEvent,IMetadata,IProducer,IProducerConfiguration
