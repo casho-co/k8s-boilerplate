@@ -175,3 +175,10 @@ LOGGING = {
 # KAFKA
 
 KAFKA_BOOTSTRAP_SERVERS = 'kafka-service:9092'
+
+#Secret key for token signing
+TOKEN_KEY = 'your_secret_key'
+
+# Set token expiration time (optional)
+JWT_EXPIRATION_HOURS = 1
+JWT_EXPIRATION_DAYS = 1 
