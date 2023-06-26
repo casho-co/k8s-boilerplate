@@ -1,4 +1,4 @@
-from .middlewares import HealthCheckMiddleware , ErrorHandlingMiddleware
+from .middlewares import HealthCheckMiddleware , ErrorHandlingMiddleware,AuthenticationMiddleware
 from .kafka.factories import ConsumerFactory,ProducerFactory
 from .kafka.interfaces import IEvent , IMetadata ,IConsumer , IProducer, IProducerConfiguration , ConsumerConfiguration
 from .kafka.Kafka_implementation import KafkaConsumer ,KafkaProducer
