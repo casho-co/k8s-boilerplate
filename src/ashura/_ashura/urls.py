@@ -13,46 +13,16 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-import datetime
-import json
 import logging
 from django.contrib import admin
 from django.urls import path, include
 from django.http import JsonResponse
 from django.conf import settings
 from errors.database_connection_error import DatabaseConnectionError
-import jwt
 from health.kafka.producer import KafkaProducer
 from health.kafka.topics import TOPIC_HEALTH
 
 logger = logging.getLogger("ashura_app")
-
-def get_token(request):
-    if request.method == 'POST':
-        json_data = json.loads(request.body)
-        username= json_data['username']
-
-        if username :
-            access_token_payload = {
-            'username':username,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=settings.JWT_EXPIRATION_HOURS),
-            }
-            access_token = jwt.encode(access_token_payload, settings.TOKEN_KEY, algorithm='HS256')
-
-            refresh_token_payload={
-            'username':username,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(days=settings.JWT_EXPIRATION_DAYS),
-                
-            }
-            refersh_token = jwt.encode(refresh_token_payload,settings.TOKEN_KEY,algorithm='HS256')
-            return JsonResponse({
-                "access_token": access_token ,
-                "refresh_token": refersh_token}, status=200)
-
-        else:
-            return JsonResponse({'error':'user data should be passed in request body as json'},status=400)
-    else:
-        return JsonResponse({'error': 'Invalid request method'}, status=400)
 
 def message(request):
 
@@ -76,6 +46,4 @@ urlpatterns = [
     path("api/ashura/", message),
     path("api/ashura/error/", error),
     path("health/", include("health.urls")),
-    path("api/ashura/token",get_token)
-
 ]
