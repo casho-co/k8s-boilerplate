@@ -1,14 +1,3 @@
-# How to publish
-
-# Create the dist files using the following code:
-  
-    python setup.py sdist bdist_wheel
-
-# Upload the dist folder to PYPI using Twine:
-  
-    pip install twine
-    twine upload dist/*                                                                                               
-
 # casho
 
 casho is a django library that provides custom error handling functionality for Django applications.
@@ -36,8 +25,7 @@ settings.py
 MIDDLEWARE = [
     # Other apps...
     'casho.ErrorHandlingMiddleware',
-    'casho.HealthCheckMiddleware',
-    'casho.AuthenticationMiddleware
+    'casho.HealthCheckMiddleware'
 ]
 
 # To use other classes 
