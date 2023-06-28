@@ -18,9 +18,16 @@ from django.contrib import admin
 from django.urls import path, include
 from django.http import JsonResponse
 from django.conf import settings
+from requests import Response
 from errors.database_connection_error import DatabaseConnectionError
 from health.kafka.producer import KafkaProducer
 from health.kafka.topics import TOPIC_HEALTH
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth.models import User
+from rest_framework.response import Response
+
 
 logger = logging.getLogger("ashura_app")
 
@@ -41,11 +48,25 @@ def error(request):
     logger.error("Error view requested.")
     raise DatabaseConnectionError()
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def test_token(request):
 
+    logger.info("token valid")
+    return JsonResponse({'username': request.user.username,
+        'message':'successfull'})
+    
+def create_user(request):
+    user = User.objects.create_user(username='test', email='test@test.com', password='test4')
+    return JsonResponse({'message':'successfull'})
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("api/ashura/", message),
     path("api/ashura/error/", error),
-    path("health/", include("health.urls"))
+    path("health/", include("health.urls")),
+    path('api/ashura/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/ashura/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/ashura/token/test/',test_token),
+    path('api/ashura/createuser/',create_user)
 
 ]
