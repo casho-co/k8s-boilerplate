@@ -1,3 +1,14 @@
+# How to publish
+
+# Create the dist files using the following code:
+    
+    pip install wheel
+    python setup.py sdist bdist_wheel
+
+# Upload the dist folder to PYPI using Twine:
+  
+    pip install twine
+    twine upload dist/*                                                                                               
 # casho
 
 casho is a django library that provides custom error handling functionality for Django applications.
