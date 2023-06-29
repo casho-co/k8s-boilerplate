@@ -56,6 +56,7 @@ def test_token(request):
     return JsonResponse({'username': request.user.username,
         'message':'successfull'})
     
+@api_view(['GET'])
 def create_user(request):
     user = User.objects.create_user(username='test', email='test@test.com', password='test4')
     return JsonResponse({'message':'successfull'})
