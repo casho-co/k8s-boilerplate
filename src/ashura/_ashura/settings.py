@@ -86,7 +86,21 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = '_ashura.wsgi.application'
+
 CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_HEADERS = True
+CORS_ALLOW_METHODS = (
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+)
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8080",
+    ]
+
 
 
 # Database
@@ -192,10 +206,10 @@ KAFKA_BOOTSTRAP_SERVERS = 'kafka-service:9092'
 
 # JWT 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
+    "ACCESS_TOKEN_LIFETIME": timedelta(seconds=30),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
-    
+    "ALGORITHM": "HS256",
     "SIGNING_KEY": settings.SECRET_KEY,
 }
