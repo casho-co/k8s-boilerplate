@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
+    
     'health',
+    'authy',
 ]
 
 MIDDLEWARE = [
@@ -60,12 +62,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'errors.middleware.ErrorHandlingMiddleware',
 ]
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
-}
 
 ROOT_URLCONF = '_ashura.urls'
 
@@ -88,17 +84,8 @@ TEMPLATES = [
 WSGI_APPLICATION = '_ashura.wsgi.application'
 
 CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_ALL_HEADERS = True
-CORS_ALLOW_METHODS = (
-    "DELETE",
-    "GET",
-    "OPTIONS",
-    "PATCH",
-    "POST",
-    "PUT",
-)
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8080",
+    "http://localhost:4200",
     ]
 
 

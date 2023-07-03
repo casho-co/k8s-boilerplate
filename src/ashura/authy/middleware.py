@@ -1,8 +1,7 @@
 import logging
 from rest_framework_simplejwt.tokens import AccessToken
-from rest_framework.exceptions import AuthenticationFailed
 from django.contrib.auth.models import User
-from django.http import HttpResponse
+from django.http import JsonResponse
 from rest_framework_simplejwt.exceptions import TokenError
 
 logger = logging.getLogger("ashura_app")
@@ -17,12 +16,15 @@ class TokenAuthenticationMiddleware:
         if token:
             try:
                 decoded_token = AccessToken(token,verify=True)
-                user_id = decoded_token['user_id']
-                logger.info(user_id)
-                user = User.objects.get(id=user_id)
-                request.user = user
+                data = decoded_token['data']
+                logger.info(data)
+                request.user = data
+                response = self.get_response(request)
+                return response
             except (TokenError, User.DoesNotExist):
-                return HttpResponse('Unauthorized', status=401)
-
-        response = self.get_response(request)
-        return response
+                return JsonResponse({'error':'Unauthorized',
+                    "message":"Please provide a valid token"}, status=401)
+        else:
+            return JsonResponse({'error':'Unauthorized',
+                "message":"Please provide a valid token"},status=401)
+        
