@@ -21,7 +21,7 @@ class create_token(View):
 
 @method_decorator(TokenAuthenticationMiddleware , name='dispatch')        
 class token_test(View):
-    def get(self,request):
+    def post(self,request):
         logger.info(request.user)
         return JsonResponse({'message':'Token Verified'})
     
