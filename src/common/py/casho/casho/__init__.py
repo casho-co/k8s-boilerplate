@@ -1,5 +1,3 @@
 from .middlewares import HealthCheckMiddleware , ErrorHandlingMiddleware
-from .kafka.factories import ConsumerFactory,ProducerFactory
-from .kafka.interfaces import IEvent , IMetadata ,IConsumer , IProducer, IProducerConfiguration , ConsumerConfiguration
-from .kafka.Kafka_implementation import KafkaConsumer ,KafkaProducer
+from .kafka import KafkaConsumer,KafkaProducer,serialize_message,deserialize_message
 from .errors import CustomError ,IErrorStruct, DatabaseConnectionError
