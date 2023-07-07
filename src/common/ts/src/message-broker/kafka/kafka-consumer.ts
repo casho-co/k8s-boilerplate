@@ -1,5 +1,5 @@
-import { logger } from '@cashoco/common';
 import { Kafka } from 'kafkajs';
+import { logger } from '../../lib/logger';
 import { IConsumer } from '../interfaces/iconsumer';
 import { IEvent } from '../interfaces/ievent';
 

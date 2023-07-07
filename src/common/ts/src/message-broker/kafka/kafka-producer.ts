@@ -1,15 +1,15 @@
 import { Kafka, Producer, ProducerRecord } from 'kafkajs';
-import { IProducer } from './../interfaces/iproducer';
+import { IProducer } from '../interfaces/iproducer';
+import { IMetadata } from '../interfaces/imetadata';
+import { IEvent } from '../interfaces/ievent';
 import { logger } from '../../lib/logger';
-import { IEvent } from './../interfaces/ievent';
-import { IMetadata } from './../interfaces/imetadata';
 
 // Concrete implementation for a KafkaProducer
 export class KafkaProducer implements IProducer {
   private static instance: KafkaProducer;
   private producer: Producer;
 
-  constructor(broker: string) {
+  private constructor(broker: string) {
     const kafka = new Kafka({
       brokers: [broker],
     });
@@ -37,7 +37,7 @@ export class KafkaProducer implements IProducer {
         logger.info(`Message sent to Kafka: ${message}`);
       })
       .catch((err) => {
-        logger.error(`Error occurred while producing to Kafka: ${err}`);
+        logger.error(`Error occurred while producing to Kafka: ${err.message}`);
       });
   };
 }

@@ -1,2 +1,2 @@
-export { ProducerFactory } from './factories/producer-factory';
-export { ConsumerFactory } from './factories/consumer-factory';
+export { KafkaProducer } from "./kafka/kafka-producer"
+export { KafkaConsumer } from "./kafka/kafka-consumer"
