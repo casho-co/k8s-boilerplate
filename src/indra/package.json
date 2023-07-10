@@ -13,7 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@cashoco/common": "^0.0.2",
+    "@cashoco/common": "^0.0.3",
     "express": "^4.18.2",
     "morgan": "^1.10.0",
     "winston": "^3.8.2"
