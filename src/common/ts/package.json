@@ -21,7 +21,9 @@
     "typescipt": "^1.0.0"
   },
   "dependencies": {
+    "@cashoco/common": "^0.0.2",
     "express": "^4.18.2",
+    "kafkajs": "^2.2.4",
     "morgan": "^1.10.0",
     "winston": "^3.8.2"
   }
