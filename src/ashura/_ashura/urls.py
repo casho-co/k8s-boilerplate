@@ -17,7 +17,6 @@ import logging
 from django.contrib import admin
 from django.urls import path, include
 from django.http import JsonResponse
-from django.conf import settings
 from errors.database_connection_error import DatabaseConnectionError
 from health.kafka.producer import KafkaProducer
 from health.kafka.topics import TOPIC_HEALTH
@@ -39,11 +38,12 @@ def error(request):
     logger.info("Request ID {0}".format(request.headers['X-Request-Id']))
     logger.error("Error view requested.")
     raise DatabaseConnectionError()
-
+    
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("api/ashura/", message),
     path("api/ashura/error/", error),
     path("health/", include("health.urls")),
+    path("auth/", include("authy.urls")),
 ]
