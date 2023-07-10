@@ -23,7 +23,6 @@ from health.kafka.topics import TOPIC_HEALTH
 
 logger = logging.getLogger("ashura_app")
 
-
 def message(request):
 
     logger.info("Request ID {0}".format(request.headers['X-Request-Id']))
@@ -47,5 +46,4 @@ urlpatterns = [
     path("api/ashura/error/", error),
     path("health/", include("health.urls")),
     path("auth/", include("authy.urls")),
-
 ]
