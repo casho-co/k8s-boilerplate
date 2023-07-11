@@ -1,4 +1,5 @@
 import logging
+import json
 from confluent_kafka import Consumer
 from typing import Callable
 from ..interfaces.ievent import IEvent 
@@ -25,8 +26,11 @@ class KafkaConsumer(IConsumer):
                 logger.error(
                     f'Error occurred while consuming from Kafka: {message.error().str()}')
                 continue
-            callback(message.value)
-            logger.info(f"Received Message on Common django: {message.value.decode('utf-8')}")
-
+            deserialized_message = json.loads(message.value().decode('utf-8'))
             
+            callback(deserialized_message)
+            logger.info(f"Message sent to callback : {deserialized_message}")
+
+    def close(self):
+        self.consumer.close()     
         

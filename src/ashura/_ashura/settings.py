@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
     
-    'health',
     'authy',
 ]
 
@@ -190,7 +189,7 @@ LOGGING = {
 
 # KAFKA
 
-KAFKA_BROKER = os.environ.get('KAFKA_BROKER', 'kafka-service:9092'),
+KAFKA_BROKER = os.environ.get('KAFKA_BROKER', 'kafka-service:9092')
 
 KAFKA_PRODUCER_INSTANCE = KafkaProducer(KAFKA_BROKER)
 

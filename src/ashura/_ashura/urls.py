@@ -14,7 +14,6 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 import logging
-import time
 from django.contrib import admin
 from django.urls import path, include
 from django.http import JsonResponse
@@ -31,7 +30,7 @@ def message(request):
 
     event_object = IEvent('test event', 'test data')
 
-    producer = settings.KAFKA_PRODUCER_INSTANCE(
+    producer = settings.KAFKA_PRODUCER_INSTANCE.send_message(
         settings.TOPIC_HEALTH,
         event_object 
     )

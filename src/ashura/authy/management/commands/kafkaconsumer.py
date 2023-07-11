@@ -7,7 +7,7 @@ from django.conf import settings
 logger = logging.getLogger("ashura_consumer")
 
 def callback(event: IEvent):
-    logger.info("Received event: %s", event.data)
+    logger.info("Received event on consumer: %s", event)
 
 
 class Command(BaseCommand):
