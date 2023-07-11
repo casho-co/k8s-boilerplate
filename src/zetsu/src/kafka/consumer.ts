@@ -1,13 +1,12 @@
-import { KafkaConsumer, logger } from "@cashoco/common";
-import { TOPIC_HEALTH } from "./topics";
-
+import { KafkaConsumer, logger, IEvent } from '@cashoco/common';
+import { TOPIC_HEALTH } from './topics';
 
 const KAFKA_BROKER: string = process.env.KAFKA_BROKER!;
 
-const consumer = new KafkaConsumer(KAFKA_BROKER)
+const consumer = new KafkaConsumer(KAFKA_BROKER);
 
-const callback: (event)=> void = (event) => {
-  logger.info(`Consumed event eventType:${event.eventType} , data: ${event.data}, created at:${event.createdAt}` )
-}
+const callback = (topic: string, message: IEvent) => {
+  logger.info(`Consumed event eventType:${message.eventType} , data: ${message.data}, created at:${message.createdAt}`);
+};
 
-consumer.subscribe(TOPIC_HEALTH, 'health_consumer_group_node',callback,true )
+consumer.subscribe(TOPIC_HEALTH, 'health_consumer_group_node', callback, false);
