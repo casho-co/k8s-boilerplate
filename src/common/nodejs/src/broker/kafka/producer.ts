@@ -1,6 +1,5 @@
 import { Kafka, Producer, ProducerRecord } from 'kafkajs';
 import { IProducer } from '../interfaces/iproducer';
-import { IMetadata } from '../interfaces/imetadata';
 import { IEvent } from '../interfaces/ievent';
 import { logger } from '../../lib/logger';
 
@@ -23,11 +22,11 @@ export class KafkaProducer implements IProducer {
     return KafkaProducer.instance;
   }
 
-  public sendMessage = async (metadata: IMetadata, message: IEvent) => {
+  public sendMessage = async (topic: string, message: IEvent) => {
     await this.producer.connect();
 
     const event: ProducerRecord = {
-      topic: metadata.topic,
+      topic: topic,
       messages: [{ value: JSON.stringify(message) }],
     };
 
