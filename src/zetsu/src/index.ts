@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import connectDB from './database';
 import { healthRouter } from './routes/api/health';
-import { morganMiddleware, logger, errorHandler, DatabaseConnectionError, KafkaProducer } from '@cashoco/common';
+import { morganMiddleware, logger, errorHandler, DatabaseConnectionError, KafkaProducer } from '@launchseed/shared';
 import { TOPIC_HEALTH } from './kafka/topics';
 
 const app = express();

@@ -1,4 +1,4 @@
-import { KafkaConsumer, logger, IEvent } from '@cashoco/common';
+import { KafkaConsumer, logger, IEvent } from '@launchseed/shared';
 import { TOPIC_HEALTH } from './topics';
 
 const KAFKA_BROKER: string = process.env.KAFKA_BROKER!;

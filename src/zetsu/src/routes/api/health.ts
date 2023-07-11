@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import mongoose from 'mongoose';
-import { logger } from '@cashoco/common';
+import { logger } from '@launchseed/shared';
 
 const router: Router = Router();
 

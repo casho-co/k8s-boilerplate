@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { morganMiddleware, logger, errorHandler, DatabaseConnectionError, KafkaProducer } from '@cashoco/common';
+import { morganMiddleware, logger, errorHandler, DatabaseConnectionError, KafkaProducer } from '@launchseed/shared';
 import { TOPIC_HEALTH } from './kafka/topics';
 
 const app = express();
@@ -12,7 +12,6 @@ app.get('/api/indra/', (req: Request, res: Response) => {
   logger.info(`request ID ${req.header('x-request-id')}`);
   logger.debug('debug info');
 
-
   const producer = req.app.locals.kafkaProducer;
   const now = new Date().toISOString();
   const event = {
@@ -20,7 +19,7 @@ app.get('/api/indra/', (req: Request, res: Response) => {
     data: 'test data',
     createdAt: now,
   };
-  
+
   producer.sendMessage(TOPIC_HEALTH, event);
 
   res.send('Indra V1');

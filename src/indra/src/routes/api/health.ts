@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { logger } from '@cashoco/common';
+import { logger } from '@launchseed/shared';
 
 const router: Router = Router();
 
