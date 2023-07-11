@@ -1,3 +1,0 @@
-default_app_config = 'casho.casho.apps.MyAppConfiguration'
-
-from .casho import  ErrorHandlingMiddleware,HealthCheckMiddleware,DatabaseConnectionError,IErrorStruct,CustomError,KafkaConsumer,KafkaProducer,IConsumerConfiguration,IEvent,IMetadata,IProducerConfiguration
