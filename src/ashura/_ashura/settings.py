@@ -14,6 +14,7 @@ import os
 import logging
 from pathlib import Path
 from django.conf import settings
+from shared.broker.kafka import KafkaProducer
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -190,6 +191,10 @@ LOGGING = {
 # KAFKA
 
 KAFKA_BROKER = os.environ.get('KAFKA_BROKER', 'kafka-service:9092'),
+
+KAFKA_PRODUCER_INSTANCE = KafkaProducer(KAFKA_BROKER)
+
+TOPIC_HEALTH = "health"
 
 # JWT 
 SIMPLE_JWT = {

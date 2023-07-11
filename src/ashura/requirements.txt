@@ -6,3 +6,4 @@ confluent-kafka==2.1.1
 djangorestframework
 djangorestframework-simplejwt
 django-cors-headers
+-e ../common/django

@@ -14,12 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 import logging
+import time
 from django.contrib import admin
 from django.urls import path, include
 from django.http import JsonResponse
-from errors.database_connection_error import DatabaseConnectionError
-from health.kafka.producer import KafkaProducer
-from health.kafka.topics import TOPIC_HEALTH
+from django.conf import settings
+from shared.broker.interfaces import IEvent
+from shared.errors import DatabaseConnectionError
 
 logger = logging.getLogger("ashura_app")
 
@@ -28,9 +29,12 @@ def message(request):
     logger.info("Request ID {0}".format(request.headers['X-Request-Id']))
     logger.info("Message view requested.")
 
-    producer = KafkaProducer()
-    producer.send_message(TOPIC_HEALTH, {"message": "kafka message"})
+    event_object = IEvent('test event', 'test data')
 
+    producer = settings.KAFKA_PRODUCER_INSTANCE(
+        settings.TOPIC_HEALTH,
+        event_object 
+    )
     return JsonResponse({"message": "Ashura V1"}, status=200)
 
 

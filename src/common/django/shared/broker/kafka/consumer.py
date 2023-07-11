@@ -7,7 +7,7 @@ from ..interfaces.iconsumer import  IConsumer
 logger = logging.getLogger()
 
 class KafkaConsumer(IConsumer):
-    def __init__(self, broker: str,consumer_group: str):
+    def __init__(self, broker: str, consumer_group: str):
         self.consumer = Consumer({
             'bootstrap.servers': broker,
             'group.id': consumer_group,

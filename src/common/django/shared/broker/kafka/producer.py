@@ -2,7 +2,6 @@ import json
 import logging
 from confluent_kafka import Producer
 from ..interfaces.ievent import IEvent 
-from ..interfaces import IMetadata 
 from ..interfaces.iproducer import IProducer 
 
 logger = logging.getLogger()
@@ -19,7 +18,7 @@ class Singleton(type):
 
 class MyMeta(type(IProducer), type(Singleton)):
     pass
-class KafkaProducer(IProducer,metaclass=MyMeta):
+class KafkaProducer(IProducer, metaclass=MyMeta):
     def __init__(self, broker: str):
         self.producer = Producer({'bootstrap.servers': broker})
 
@@ -29,8 +28,7 @@ class KafkaProducer(IProducer,metaclass=MyMeta):
         else:
             logger.info(f'Message produced: {msg.value()}')
 
-    def send_message(self, metadata: IMetadata, message: IEvent) -> None:
-        topic = metadata.topic
+    def send_message(self, topic, message: IEvent) -> None:
         serialized_message = json.dumps(message.__dict__())
 
         try:
