@@ -1,1 +1,0 @@
-TOPIC_HEALTH = "health"
