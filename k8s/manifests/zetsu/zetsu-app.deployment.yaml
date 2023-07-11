@@ -49,14 +49,14 @@ spec:
                   key: MONGO_INITDB_ROOT_PASSWORD
           livenessProbe:
             httpGet:
-              path: /health/live
+              path: /health/live/
               port: 3010
             initialDelaySeconds: 5
             timeoutSeconds: 2
             periodSeconds: 5
           readinessProbe:
             httpGet:
-              path: /health/ready
+              path: /health/ready/
               port: 3010
             initialDelaySeconds: 5
             timeoutSeconds: 2

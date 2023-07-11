@@ -44,6 +44,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("api/ashura/", message),
     path("api/ashura/error/", error),
-    path("health/", include("health.urls")),
     path("auth/", include("authy.urls")),
 ]
