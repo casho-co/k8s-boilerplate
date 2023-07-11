@@ -1,8 +1,7 @@
 import express, { Request, Response } from 'express';
 import connectDB from './database';
 import { healthRouter } from './routes/api/health';
-import { morganMiddleware, logger, errorHandler, DatabaseConnectionError } from '@cashoco/common';
-import { KafkaProducer } from './kafka/producer';
+import { morganMiddleware, logger, errorHandler, DatabaseConnectionError, KafkaProducer } from '@cashoco/common';
 import { TOPIC_HEALTH } from './kafka/topics';
 
 const app = express();
@@ -15,8 +14,17 @@ app.use('/health', healthRouter);
 app.get('/api/zetsu/', (req: Request, res: Response) => {
   logger.info(`request ID ${req.header('x-request-id')}`);
   logger.debug('debug info');
-  const producer = new KafkaProducer();
-  producer.sendMessage(TOPIC_HEALTH, JSON.stringify({ type: 'new user' }));
+  const producer = KafkaProducer.getInstance(process.env.KAFKA_BROKER!);
+  const now = new Date().toISOString()
+  const event = {
+    eventType: 'test event',
+    data: 'test data',
+    createdAt: now 
+  }
+  const metadata = {
+    topic:TOPIC_HEALTH
+  } 
+  producer.sendMessage(metadata,event)
   res.send('Zetsu V1');
 });
 
