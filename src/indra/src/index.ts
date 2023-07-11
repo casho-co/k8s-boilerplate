@@ -20,10 +20,8 @@ app.get('/api/indra/', (req: Request, res: Response) => {
     data: 'test data',
     createdAt: now,
   };
-  const metadata = {
-    topic: TOPIC_HEALTH,
-  };
-  producer.sendMessage(metadata, event);
+  
+  producer.sendMessage(TOPIC_HEALTH, event);
 
   res.send('Indra V1');
 });
