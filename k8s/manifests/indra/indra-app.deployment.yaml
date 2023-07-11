@@ -19,6 +19,9 @@ spec:
           image: indra/nodejs
           ports:
             - containerPort: 3000 # port exposed by the container
+          envFrom:
+            - configMapRef:
+                name: indra-config
 ---
 apiVersion: v1
 kind: Service

@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: indra-consumer-deployment
+  labels:
+    app: indra-consumer
+spec:
+  replicas: 1 # number of replicas to run
+  selector:
+    matchLabels:
+      app: indra-consumer
+  template:
+    metadata:
+      labels:
+        app: indra-consumer
+    spec:
+      containers:
+        - name: indra-consumer
+          image: indra/nodejs
+          command: ['npm', 'run', 'consumer']
+          envFrom:
+            - configMapRef:
+                name: indra-config
