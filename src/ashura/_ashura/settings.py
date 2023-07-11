@@ -51,7 +51,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'health.middleware.HealthCheckMiddleware',
+    'shared.middleware.health.HealthCheckMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
@@ -60,7 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'errors.middleware.ErrorHandlingMiddleware',
+    'shared.middleware.errorhandler.ErrorHandlingMiddleware',
 ]
 
 ROOT_URLCONF = '_ashura.urls'
@@ -189,7 +189,7 @@ LOGGING = {
 
 # KAFKA
 
-KAFKA_BOOTSTRAP_SERVERS = 'kafka-service:9092'
+KAFKA_BROKER = os.environ.get('KAFKA_BROKER', 'kafka-service:9092'),
 
 # JWT 
 SIMPLE_JWT = {
