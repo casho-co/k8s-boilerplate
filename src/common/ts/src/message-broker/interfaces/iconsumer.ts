@@ -6,7 +6,7 @@ export interface IConsumer {
   subscribe(
     topic: string,
     consumerGroup: string,
-    callback: (event: IEvent) => void,
+    callback: (topic: string, event: IEvent) => void,
     fromBeginning?: boolean,
   ): Promise<void>;
 }

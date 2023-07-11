@@ -14,29 +14,30 @@ export class KafkaConsumer implements IConsumer {
   async subscribe(
     topic: string,
     consumerGroup: string,
-    callback: (event: IEvent) => void,
+    callback: (topic: string, event: IEvent) => void,
     fromBeginning = true,
   ): Promise<void> {
     const consumer = this.kafka.consumer({
       groupId: consumerGroup,
     });
 
-    await consumer
-      .connect()
-      .then(() => {
-        logger.info('Connected to kafka server');
-      })
-      .catch((error) => {
-        logger.info(`error encountered while consumer connect ${error.message}`);
-      });
+    await consumer.connect();
+
     await consumer.subscribe({ topics: [topic], fromBeginning }).catch((error) => {
       logger.info(`error encountered while consumer subscribing ${error.message}`);
     });
+
     await consumer.run({
       eachBatchAutoResolve: true,
-      eachMessage: async ({ message }: any) => {
-        callback(JSON.parse(message));
-        logger.info(`Recieved Message on Common Node :${message.value?.toString()}`);
+      eachMessage: async ({ topic, partition, message, heartbeat, pause }) => {
+        // console.log('message', message);
+        // console.log({
+        //   topic: topic,
+        //   key: message.key?.toString(),
+        //   value: message.value?.toString(),
+        //   headers: message?.headers,
+        // });
+        callback(topic, JSON.parse(message.value!.toString()));
       },
     });
   }
