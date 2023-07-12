@@ -13,11 +13,10 @@ app.get('/api/indra/', (req: Request, res: Response) => {
   logger.debug('debug info');
 
   const producer = req.app.locals.kafkaProducer;
-  const now = new Date().toISOString();
+  
   const event = {
     eventType: 'test event',
-    data: 'test data',
-    createdAt: now,
+    data: 'test data'
   };
 
   producer.sendMessage(TOPIC_HEALTH, event);

@@ -3,5 +3,5 @@
 export interface IEvent {
   eventType: string;
   data: any;
-  createdAt: string;
+  createdAt?: string;
 }
