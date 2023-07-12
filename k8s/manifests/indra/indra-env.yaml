@@ -4,3 +4,13 @@ metadata:
   name: indra-config
 data:
   KAFKA_BROKER: 'kafka-service:9092'
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: indra-secret
+type: Opaque
+data:
+  # This should **not** be in version control
+  POSTGRES_PASSWORD: cGFzc3dvcmQ=
+  JWT_KEY: ZGphbmdvLWluc2VjdXJlLStpNDBhXzJjaihwaGNlNGxzMmd6NWp1XnhxI2l2d3AmenBvNSp2Km5xK25vYyNjeDM2

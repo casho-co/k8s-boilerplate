@@ -17,4 +17,4 @@ type: Opaque
 data:
   # This should **not** be in version control
   MONGO_INITDB_ROOT_PASSWORD: cGFzc3dvcmQ=
-  JWT_KEY: "django-insecure-+i40a_2cj(phce4ls2gz5ju^xq#ivwp&zpo5*v*nq+noc#cx36"
+  JWT_KEY: ZGphbmdvLWluc2VjdXJlLStpNDBhXzJjaihwaGNlNGxzMmd6NWp1XnhxI2l2d3AmenBvNSp2Km5xK25vYyNjeDM2
