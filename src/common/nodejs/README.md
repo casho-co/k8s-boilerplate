@@ -17,5 +17,5 @@ npm publish --access public
 ## How to install
 
 ```
-npm install @launchseed/shared
+npm install @cashoco/shared
 ```

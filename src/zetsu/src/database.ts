@@ -1,5 +1,5 @@
 import { connect } from 'mongoose';
-import { logger } from '@launchseed/shared';
+import { logger } from '@cashoco/shared';
 
 const { MONGO_INITDB_ROOT_USERNAME, MONGO_INITDB_ROOT_PASSWORD, MONGO_HOST, MONGO_PORT, MONGO_INITDB_DATABASE } =
   process.env;

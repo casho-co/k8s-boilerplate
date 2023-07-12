@@ -6,7 +6,7 @@ import {
   DatabaseConnectionError,
   KafkaProducer,
   requireAuth,
-} from '@launchseed/shared';
+} from '@cashoco/shared';
 import { TOPIC_HEALTH } from './kafka/topics';
 
 const app = express();
