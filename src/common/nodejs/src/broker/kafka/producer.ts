@@ -25,6 +25,9 @@ export class KafkaProducer implements IProducer {
   public sendMessage = async (topic: string, message: IEvent) => {
     await this.producer.connect();
 
+    const now = new Date().toISOString();
+    message.createdAt = now;
+
     const event: ProducerRecord = {
       topic: topic,
       messages: [{ value: JSON.stringify(message) }],
