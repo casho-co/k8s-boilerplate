@@ -13,39 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-import logging
 from django.contrib import admin
 from django.urls import path, include
-from django.http import JsonResponse
-from django.conf import settings
-from shared.broker.interfaces import IEvent
-from shared.errors import DatabaseConnectionError
-
-logger = logging.getLogger("ashura_app")
-
-def message(request):
-
-    logger.info("Request ID {0}".format(request.headers['X-Request-Id']))
-    logger.info("Message view requested.")
-
-    event_object = IEvent('test event', 'test data')
-
-    settings.KAFKA_PRODUCER_INSTANCE.send_message(
-        settings.TOPIC_HEALTH,
-        event_object 
-    )
-    return JsonResponse({"message": "Ashura V1"}, status=200)
-
-
-def error(request):
-    logger.info("Request ID {0}".format(request.headers['X-Request-Id']))
-    logger.error("Error view requested.")
-    raise DatabaseConnectionError()
-    
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("api/ashura/", message),
-    path("api/ashura/error/", error),
-    path("api/ashura/auth/", include("authy.urls")),
+    path('api/ashura/', include('_ashura.api_urls'))
 ]

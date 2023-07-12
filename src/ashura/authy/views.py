@@ -21,7 +21,7 @@ class CreateToken(APIView):
         return JsonResponse({'access':access,'refresh':refresh})
 
 class TokenVerify(APIView):
-    def post(self, request):
+    def get(self, request):
         logger.info("User Info", request.user.uuid, request.user.username, request.user.email)
         return JsonResponse({'message':'Token Verified'})
     

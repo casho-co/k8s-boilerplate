@@ -15,14 +15,11 @@ class ErrorHandlingMiddleware:
         return response
 
     def process_exception(self, request, exception):
-        if isinstance(exception, CustomError):
-            logger.error(
+        logger.error(
                 msg=f'Error occurred while processing request: {exception}'
             )
+        if isinstance(exception, CustomError):
             return JsonResponse({'errors': exception.serialize_errors()}, safe=False, status=exception.status_code)
         else:
-
             status_code = getattr(exception, 'status_code') if hasattr(exception, 'status_code') else 400
-            logger.error(
-                f'Error occurred while processing request: {exception}')
             return JsonResponse([{'message': 'something went wrong.'}], safe=False, status=status_code)
