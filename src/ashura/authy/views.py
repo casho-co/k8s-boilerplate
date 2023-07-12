@@ -20,8 +20,8 @@ class CreateToken(APIView):
         refresh = str(token)
         return JsonResponse({'access':access,'refresh':refresh})
 
-class TokenTest(APIView):
-    def post(self,request):
+class TokenVerify(APIView):
+    def post(self, request):
         logger.info("User Info", request.user.uuid, request.user.username, request.user.email)
         return JsonResponse({'message':'Token Verified'})
     

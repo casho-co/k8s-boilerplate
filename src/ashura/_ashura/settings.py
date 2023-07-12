@@ -210,5 +210,7 @@ SIMPLE_JWT = {
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES':(
         'rest_framework_simplejwt.authentication.JWTStatelessUserAuthentication',
-    )
+    ),
+    'EXCEPTION_HANDLER': 'shared.utils.exceptions.exception_handler'
+
 }
