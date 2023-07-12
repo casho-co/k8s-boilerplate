@@ -29,6 +29,12 @@ spec:
           envFrom:
             - configMapRef:
                 name: indra-config
+          env:
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: indra-secret
+                  key: JWT_KEY
           livenessProbe:
             httpGet:
               path: /health/live/

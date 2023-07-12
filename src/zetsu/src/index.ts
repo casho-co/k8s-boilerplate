@@ -1,7 +1,14 @@
 import express, { Request, Response } from 'express';
 import connectDB from './database';
 import { healthRouter } from './routes/api/health';
-import { morganMiddleware, logger, errorHandler, DatabaseConnectionError, KafkaProducer } from '@launchseed/shared';
+import {
+  morganMiddleware,
+  logger,
+  errorHandler,
+  DatabaseConnectionError,
+  KafkaProducer,
+  requireAuth,
+} from '@launchseed/shared';
 import { TOPIC_HEALTH } from './kafka/topics';
 
 const app = express();
@@ -29,6 +36,12 @@ app.get('/api/zetsu/error/', (req: Request, res: Response) => {
   logger.info(`request ID ${req.header('x-request-id')}`);
   logger.error('database error');
   throw new DatabaseConnectionError();
+});
+
+app.get('/api/zetsu/verify/', requireAuth, (req: Request, res: Response) => {
+  logger.info(`user info ${req.currentUser?.email}`);
+  logger.info(`request ID ${req.header('x-request-id')}`);
+  res.send('Token Verified.');
 });
 
 app.use(errorHandler);

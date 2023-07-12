@@ -53,6 +53,11 @@ spec:
                 secretKeyRef:
                   name: ashura-secret
                   key: POSTGRES_PASSWORD
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: ashura-secret
+                  key: JWT_KEY
           livenessProbe:
             httpGet:
               path: /health/live/

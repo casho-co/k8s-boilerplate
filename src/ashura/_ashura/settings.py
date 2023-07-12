@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-+i40a_2cj(phce4ls2gz5ju^xq#ivwp&zpo5*v*nq+noc#cx36'
+SECRET_KEY = os.environ.get("JWT_KEY", "secret")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -197,10 +197,20 @@ TOPIC_HEALTH = "health"
 
 # JWT 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(seconds=30),
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
     "ALGORITHM": "HS256",
     "SIGNING_KEY": settings.SECRET_KEY,
+    "TOKEN_USER_CLASS": "rest_framework_simplejwt.models.TokenUser",
+    "USER_ID_CLAIM": "uuid",
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES':(
+        'rest_framework_simplejwt.authentication.JWTStatelessUserAuthentication',
+    ),
+    'EXCEPTION_HANDLER': 'shared.utils.exceptions.exception_handler'
+
 }

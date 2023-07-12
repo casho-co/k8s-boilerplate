@@ -17,3 +17,4 @@ type: Opaque
 data:
   # This should **not** be in version control
   POSTGRES_PASSWORD: cGFzc3dvcmQ=
+  JWT_KEY: ZGphbmdvLWluc2VjdXJlLStpNDBhXzJjaihwaGNlNGxzMmd6NWp1XnhxI2l2d3AmenBvNSp2Km5xK25vYyNjeDM2
