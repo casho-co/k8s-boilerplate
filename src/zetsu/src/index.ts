@@ -1,15 +1,8 @@
 import express, { Request, Response } from 'express';
 import connectDB from './database';
-import { healthRouter } from './routes/api/health';
-import {
-  morganMiddleware,
-  logger,
-  errorHandler,
-  DatabaseConnectionError,
-  KafkaProducer,
-  requireAuth,
-} from '@cashoco/shared';
-import { TOPIC_HEALTH } from './kafka/topics';
+import { morganMiddleware, logger, errorHandler, KafkaProducer } from '@cashoco/shared';
+import apiRouter from './api';
+import healthRouter from './api/health';
 
 const app = express();
 app.locals.kafkaProducer = KafkaProducer.getInstance(process.env.KAFKA_BROKER!);
@@ -19,30 +12,7 @@ connectDB();
 app.use(morganMiddleware);
 app.use('/health', healthRouter);
 
-app.get('/api/zetsu/', (req: Request, res: Response) => {
-  logger.info(`request ID ${req.header('x-request-id')}`);
-  logger.debug('debug info');
-  const producer = req.app.locals.kafkaProducer;
-  const event = {
-    eventType: 'test event',
-    data: 'test data',
-  };
-
-  producer.sendMessage(TOPIC_HEALTH, event);
-  res.send('Zetsu V1');
-});
-
-app.get('/api/zetsu/error/', (req: Request, res: Response) => {
-  logger.info(`request ID ${req.header('x-request-id')}`);
-  logger.error('database error');
-  throw new DatabaseConnectionError();
-});
-
-app.get('/api/zetsu/verify/', requireAuth, (req: Request, res: Response) => {
-  logger.info(`user info ${req.currentUser?.email}`);
-  logger.info(`request ID ${req.header('x-request-id')}`);
-  res.send('Token Verified.');
-});
+app.use('/api/zetsu', apiRouter);
 
 app.use(errorHandler);
 
