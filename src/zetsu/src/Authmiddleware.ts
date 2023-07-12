@@ -9,7 +9,7 @@ export interface CustomRequest extends Request {
 export const authenticateToken = (req: CustomRequest, res: Response, next: NextFunction) => {
   try {
     const token = req.headers.authorization!.split(' ')[1];
-    const decoded = jwt.verify(token, 'django-insecure-+i40a_2cj(phce4ls2gz5ju^xq#ivwp&zpo5*v*nq+noc#cx36');
+    const decoded = jwt.verify(token, process.env.JWT_KEY!);
     const secretdata = decoded as Record<string, any>
     req.user=(secretdata['data'])
     next();
