@@ -17,11 +17,9 @@ app.get('/api/zetsu/', (req: Request, res: Response) => {
   logger.info(`request ID ${req.header('x-request-id')}`);
   logger.debug('debug info');
   const producer = req.app.locals.kafkaProducer;
-  const now = new Date().toISOString();
   const event = {
     eventType: 'test event',
     data: 'test data',
-    createdAt: now,
   };
 
   producer.sendMessage(TOPIC_HEALTH, event);

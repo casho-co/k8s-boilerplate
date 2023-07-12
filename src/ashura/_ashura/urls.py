@@ -30,7 +30,7 @@ def message(request):
 
     event_object = IEvent('test event', 'test data')
 
-    producer = settings.KAFKA_PRODUCER_INSTANCE.send_message(
+    settings.KAFKA_PRODUCER_INSTANCE.send_message(
         settings.TOPIC_HEALTH,
         event_object 
     )
