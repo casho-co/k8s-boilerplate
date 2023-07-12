@@ -37,7 +37,7 @@ app.get('/api/indra/error/', (req: Request, res: Response) => {
   throw new DatabaseConnectionError();
 });
 
-app.get('/api/indra/protected/', requireAuth, (req: Request, res: Response) => {
+app.get('/api/indra/verify/', requireAuth, (req: Request, res: Response) => {
   logger.info(`user info ${req.currentUser?.email}`);
   logger.info(`request ID ${req.header('x-request-id')}`);
   res.send('Token Verified.');

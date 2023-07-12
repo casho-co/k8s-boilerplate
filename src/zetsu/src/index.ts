@@ -1,9 +1,15 @@
 import express, { Request, Response } from 'express';
 import connectDB from './database';
 import { healthRouter } from './routes/api/health';
-import { morganMiddleware, logger, errorHandler, DatabaseConnectionError, KafkaProducer } from '@launchseed/shared';
+import {
+  morganMiddleware,
+  logger,
+  errorHandler,
+  DatabaseConnectionError,
+  KafkaProducer,
+  requireAuth,
+} from '@launchseed/shared';
 import { TOPIC_HEALTH } from './kafka/topics';
-import { authenticateToken } from './Authmiddleware';
 
 const app = express();
 app.locals.kafkaProducer = KafkaProducer.getInstance(process.env.KAFKA_BROKER!);
@@ -32,12 +38,12 @@ app.get('/api/zetsu/error/', (req: Request, res: Response) => {
   throw new DatabaseConnectionError();
 });
 
-app.use(authenticateToken)
-
-app.get('/api/zetsu/auth/', (req: Request, res: Response) => {
-  logger.info(JSON.stringify(req.user));
-  res.send('Token succesfull');
+app.get('/api/zetsu/verify/', requireAuth, (req: Request, res: Response) => {
+  logger.info(`user info ${req.currentUser?.email}`);
+  logger.info(`request ID ${req.header('x-request-id')}`);
+  res.send('Token Verified.');
 });
+
 app.use(errorHandler);
 
 app.listen(port, () => {
