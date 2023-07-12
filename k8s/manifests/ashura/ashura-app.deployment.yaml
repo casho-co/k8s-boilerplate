@@ -55,14 +55,14 @@ spec:
                   key: POSTGRES_PASSWORD
           livenessProbe:
             httpGet:
-              path: /health/live
+              path: /health/live/
               port: 8000
             initialDelaySeconds: 5
             timeoutSeconds: 3
             periodSeconds: 30
           readinessProbe:
             httpGet:
-              path: /health/ready
+              path: /health/ready/
               port: 8000
             initialDelaySeconds: 5
             timeoutSeconds: 5

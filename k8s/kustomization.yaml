@@ -4,11 +4,12 @@ kind: Kustomization
 resources:
   - ./kafka/kafka.yaml
   - ./kafka/zookeeper.yaml
-  
+
   - ./manifests/ashura/ashura-env.yaml
   - ./manifests/zetsu/zetsu-env.yaml
-  
-  - ./manifests/ashura/ashura-db.deployment.yaml  
+  - ./manifests/indra/indra-env.yaml
+
+  - ./manifests/ashura/ashura-db.deployment.yaml
   - ./manifests/zetsu/zetsu-db.deployment.yaml
 
   - ./manifests/ashura/ashura-db.job.yaml
@@ -16,7 +17,9 @@ resources:
   - ./manifests/indra/indra-app.deployment.yaml
   - ./manifests/zetsu/zetsu-app.deployment.yaml
   - ./manifests/ashura/ashura-app.deployment.yaml
-  
+
   - ./manifests/ashura/ashura-consumer.deployment.yaml
+  - ./manifests/zetsu/zetsu-consumer.deployment.yaml
+  - ./manifests/indra/indra-consumer.deployment.yaml
 
   - ./manifests/ingress.yaml

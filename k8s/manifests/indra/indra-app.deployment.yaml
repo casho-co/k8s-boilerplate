@@ -17,8 +17,25 @@ spec:
       containers:
         - name: indra
           image: indra/nodejs
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
           ports:
             - containerPort: 3000 # port exposed by the container
+          envFrom:
+            - configMapRef:
+                name: indra-config
+          livenessProbe:
+            httpGet:
+              path: /health/live/
+              port: 8000
+            initialDelaySeconds: 5
+            timeoutSeconds: 3
+            periodSeconds: 30
 ---
 apiVersion: v1
 kind: Service

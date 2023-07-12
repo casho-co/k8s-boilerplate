@@ -7,12 +7,12 @@ ENV PYTHONUNBUFFERED 1
 
 # Install system dependencies
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        gcc \
-        python3-dev \
-        libpq-dev \
-        && apt-get clean \
-        && rm -rf /var/lib/apt/lists/*
+  && apt-get install -y --no-install-recommends \
+  gcc \
+  python3-dev \
+  libpq-dev \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory to /app
 WORKDIR /app
@@ -20,9 +20,12 @@ WORKDIR /app
 # Copy the requirements file into the container
 COPY requirements.txt ./
 
+COPY packages ./packages
+
 # Install the dependencies
 RUN pip install --upgrade pip \
-    && pip install --no-cache-dir -r requirements.txt
+  && pip install --no-cache-dir -r requirements.txt
+RUN pip install packages/*.whl
 
 # Install ptvsd for debugging
 RUN pip install ptvsd

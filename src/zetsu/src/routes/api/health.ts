@@ -1,10 +1,10 @@
 import { Router, Request, Response } from 'express';
 import mongoose from 'mongoose';
-import { logger } from '@cashoco/common';
+import { logger } from '@launchseed/shared';
 
 const router: Router = Router();
 
-router.get('/ready', async (req: Request, res: Response) => {
+router.get('/ready/', async (req: Request, res: Response) => {
   logger.info('Checking the readiness of the application');
   try {
     // Check if the MongoDB connection is established and ready
@@ -20,7 +20,7 @@ router.get('/ready', async (req: Request, res: Response) => {
   }
 });
 
-router.get('/live', (req: Request, res: Response) => {
+router.get('/live/', (req: Request, res: Response) => {
   logger.info('Checking the liveness of the application');
   res.status(200).json({ message: 'Application is live' });
 });

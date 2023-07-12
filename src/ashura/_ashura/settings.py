@@ -14,6 +14,7 @@ import os
 import logging
 from pathlib import Path
 from django.conf import settings
+from shared.broker.kafka import KafkaProducer
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -46,12 +47,11 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
     
-    'health',
     'authy',
 ]
 
 MIDDLEWARE = [
-    'health.middleware.HealthCheckMiddleware',
+    'shared.middleware.health.HealthCheckMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
@@ -60,7 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'errors.middleware.ErrorHandlingMiddleware',
+    'shared.middleware.errorhandler.ErrorHandlingMiddleware',
 ]
 
 ROOT_URLCONF = '_ashura.urls'
@@ -189,7 +189,11 @@ LOGGING = {
 
 # KAFKA
 
-KAFKA_BOOTSTRAP_SERVERS = 'kafka-service:9092'
+KAFKA_BROKER = os.environ.get('KAFKA_BROKER', 'kafka-service:9092')
+
+KAFKA_PRODUCER_INSTANCE = KafkaProducer(KAFKA_BROKER)
+
+TOPIC_HEALTH = "health"
 
 # JWT 
 SIMPLE_JWT = {

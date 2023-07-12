@@ -5,6 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "start:inspect": "nodemon src/index.ts",
+    "consumer":"ts-node src/kafka/consumer.ts",
     "build": "tsc && npm run lint",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --ext .ts --fix src"
@@ -13,8 +14,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@cashoco/common": "^0.0.3",
+    "@launchseed/shared": "^0.0.1",
     "express": "^4.18.2",
+    "kafkajs": "^2.2.4",
     "mongodb": "^5.3.0",
     "mongoose": "^7.1.0"
   },
