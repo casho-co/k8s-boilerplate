@@ -14,7 +14,7 @@ logger = logging.getLogger("ashura_app")
 def message(request):
     logger.info("Request ID {0}".format(request.headers['X-Request-Id']))
     logger.info("Message view requested.")
-    event_object = IEvent('test event', 'test data')
+    event_object = IEvent('test event', 'check check')
     settings.KAFKA_PRODUCER_INSTANCE.send_message(
         settings.TOPIC_HEALTH,
         event_object 

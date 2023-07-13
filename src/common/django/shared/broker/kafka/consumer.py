@@ -1,7 +1,7 @@
 import logging
 import json
+from typing import list, Callable
 from confluent_kafka import Consumer
-from typing import Callable
 from ..interfaces.ievent import IEvent 
 from ..interfaces.iconsumer import  IConsumer
 
@@ -15,8 +15,8 @@ class KafkaConsumer(IConsumer):
             'auto.offset.reset': 'earliest'
         })
 
-    def subscribe(self, topic: str,  callback: Callable[[IEvent], None]) -> None:
-        self.consumer.subscribe(topics=[topic])
+    def subscribe(self, topics: list[str],  callback: Callable[[IEvent], None]) -> None:
+        self.consumer.subscribe(topics=topics)
                     
         while True:
             message = self.consumer.poll(1.0)
@@ -28,7 +28,7 @@ class KafkaConsumer(IConsumer):
                 continue
             deserialized_message = json.loads(message.value().decode('utf-8'))
             
-            callback(deserialized_message)
+            callback(message.topic(), deserialized_message)
             logger.info(f"Message sent to callback : {deserialized_message}")
 
     def close(self):
