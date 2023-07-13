@@ -9,4 +9,4 @@ const callback = (topic: string, message: IEvent) => {
   logger.info(`Consumed event eventType:${message.eventType} , data: ${message.data}, created at:${message.createdAt}`);
 };
 
-consumer.subscribe(TOPIC_HEALTH, 'health_consumer_group_node', callback, false);
+consumer.subscribe([TOPIC_HEALTH], 'health_group', callback, false);

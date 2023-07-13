@@ -1,15 +1,15 @@
 import { Request, Response } from 'express';
 import { logger, DatabaseConnectionError } from '@cashoco/shared';
-import { TOPIC_HEALTH } from '../../kafka/topics';
+import { TOPICS, HEALTH_EVENTS } from '../../kafka/config';
 
 export const ping = (req: Request, res: Response) => {
   logger.info(`request ID ${req.header('x-request-id')}`);
   const producer = req.app.locals.kafkaProducer;
   const event = {
-    eventType: 'test event',
-    data: 'test data',
+    eventType: HEALTH_EVENTS.HEALTH_CHECK,
+    data: 'check check',
   };
-  producer.sendMessage(TOPIC_HEALTH, event);
+  producer.sendMessage(TOPICS.HEALTH, event);
   res.json({ message: 'Indra V1' }).status(200);
 };
 
