@@ -12,7 +12,7 @@ export class KafkaConsumer implements IConsumer {
     });
   }
   async subscribe(
-    topic: string,
+    topics: string[],
     consumerGroup: string,
     callback: (topic: string, event: IEvent) => void,
     fromBeginning = true,
@@ -23,7 +23,7 @@ export class KafkaConsumer implements IConsumer {
 
     await consumer.connect();
 
-    await consumer.subscribe({ topics: [topic], fromBeginning }).catch((error) => {
+    await consumer.subscribe({ topics: topics, fromBeginning }).catch((error) => {
       logger.info(`error encountered while consumer subscribing ${error.message}`);
     });
 

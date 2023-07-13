@@ -4,7 +4,7 @@ import { IEvent } from './ievent';
 // for listening events on specific topics and/ or channels
 export interface IConsumer {
   subscribe(
-    topic: string,
+    topics: string[],
     consumerGroup: string,
     callback: (topic: string, event: IEvent) => void,
     fromBeginning?: boolean,
