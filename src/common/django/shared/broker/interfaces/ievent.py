@@ -1,9 +1,9 @@
-import time
+from datetime import datetime
 class IEvent:
     def __init__(self, eventType: str, data: any):
         self.eventType = eventType
         self.data = data
-        self.createdAt = int(round(time.time() * 1000))
+        self.createdAt = datetime.utcnow().strftime("%a, %d %b %Y %H:%M:%S GMT")
         
     def __dict__(self):
         return {
