@@ -1,6 +1,6 @@
 import logging
 import json
-from typing import list, Callable
+from typing import List, Callable
 from confluent_kafka import Consumer
 from ..interfaces.ievent import IEvent 
 from ..interfaces.iconsumer import  IConsumer

@@ -22,7 +22,6 @@ class HealthCheckMiddleware(object):
         """
         Returns that the server is alive.
         """
-        print("yayayayayaaa")
         logger.info('Checking the liveness of the application')
         return JsonResponse({"message": "Application is live."}, status=200)
 

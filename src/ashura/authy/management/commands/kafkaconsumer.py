@@ -14,7 +14,7 @@ class Command(BaseCommand):
     help = "Starts the Kafka consumer"
 
     def handle(self, *args, **options):
-        consumer = KafkaConsumer(settings.KAFKA_BROKER, "health_group")
+        consumer = KafkaConsumer(settings.KAFKA_BROKER, "ashura_health_group")
         try:
             consumer.subscribe([settings.TOPIC_HEALTH], callback)
         finally:
