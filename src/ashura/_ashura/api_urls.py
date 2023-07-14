@@ -2,9 +2,10 @@ import logging
 from django.urls import path, include
 from django.http import JsonResponse
 from django.conf import settings
-from shared.broker.interfaces import IEvent
+from shared.broker import IEvent, topics_registry
 from shared.errors import DatabaseConnectionError
 from rest_framework.decorators import permission_classes
+from kafka.config import Topics
 
 
 logger = logging.getLogger("ashura_app")
@@ -14,9 +15,13 @@ logger = logging.getLogger("ashura_app")
 def message(request):
     logger.info("Request ID {0}".format(request.headers['X-Request-Id']))
     logger.info("Message view requested.")
-    event_object = IEvent('test event', 'check check')
+    event_object = IEvent(
+        topics_registry[Topics.HEALTH.value].produce_check_health(), 
+        'check check'
+    )
+    print(event_object.to_dict())
     settings.KAFKA_PRODUCER_INSTANCE.send_message(
-        settings.TOPIC_HEALTH,
+        Topics.HEALTH.value,
         event_object 
     )
     return JsonResponse({"message": "Ashura V1"}, status=200)

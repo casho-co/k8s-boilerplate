@@ -35,7 +35,7 @@ spec:
       containers:
         - name: ashura-consumer
           image: ashura/django
-          command: ["python", "manage.py", "kafkaconsumer"]
+          command: ["python", "manage.py", "consumer"]
           resources:
             limits:
               cpu: 500m

@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'corsheaders',
     
     'authy',
+    'kafka',
 ]
 
 MIDDLEWARE = [
@@ -176,6 +177,11 @@ LOGGING = {
             'propagate': False,
         },
         'ashura_consumer': {
+            'handlers': ['console'],
+            'level': LOG_LEVEL,
+            'propagate': False,
+        },
+        'default': {
             'handlers': ['console'],
             'level': LOG_LEVEL,
             'propagate': False,
