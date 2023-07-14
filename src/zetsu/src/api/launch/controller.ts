@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
-import { logger, DatabaseConnectionError } from '@cashoco/shared';
-import { TOPICS, HEALTH_EVENTS } from '../../kafka/config';
+import { logger, DatabaseConnectionError, topicsRegistry } from '@cashoco/shared';
+import TOPICS from '../../kafka/config';
 
 export const ping = (req: Request, res: Response) => {
   logger.info(`request ID ${req.header('x-request-id')}`);
   const producer = req.app.locals.kafkaProducer;
   const event = {
-    eventType: HEALTH_EVENTS.HEALTH_CHECK,
+    eventType: topicsRegistry[TOPICS.HEALTH].produce_check_health(),
     data: 'check check',
   };
   producer.sendMessage(TOPICS.HEALTH, event);

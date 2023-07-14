@@ -3,6 +3,7 @@ import connectDB from './database';
 import { morganMiddleware, logger, errorHandler, KafkaProducer } from '@cashoco/shared';
 import apiRouter from './api';
 import healthRouter from './api/health';
+import './kafka/events';
 
 const app = express();
 app.locals.kafkaProducer = KafkaProducer.getInstance(process.env.KAFKA_BROKER!);
