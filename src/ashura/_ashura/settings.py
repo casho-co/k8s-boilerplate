@@ -51,7 +51,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'shared.middleware.health.HealthCheckMiddleware',
+    'shared.middleware.HealthCheckMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
@@ -60,7 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'shared.middleware.errorhandler.ErrorHandlingMiddleware',
+    'shared.middleware.ErrorHandlingMiddleware',
 ]
 
 ROOT_URLCONF = '_ashura.urls'
@@ -211,6 +211,6 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES':(
         'rest_framework_simplejwt.authentication.JWTStatelessUserAuthentication',
     ),
-    'EXCEPTION_HANDLER': 'shared.utils.exceptions.exception_handler'
+    'EXCEPTION_HANDLER': 'shared.utils.exception_handler'
 
 }
