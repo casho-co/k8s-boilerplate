@@ -4,7 +4,7 @@ from confluent_kafka import Producer
 from ..interfaces.ievent import IEvent 
 from ..interfaces.iproducer import IProducer 
 
-logger = logging.getLogger()
+logger = logging.getLogger('default')
 
 
 class Singleton(type):
@@ -29,7 +29,7 @@ class KafkaProducer(IProducer, metaclass=MyMeta):
             logger.info(f'Message produced: {msg.value()}')
 
     def send_message(self, topic, message: IEvent) -> None:
-        serialized_message = json.dumps(message.__dict__())
+        serialized_message = json.dumps(message.to_dict())
 
         try:
             self.producer.produce(topic, serialized_message.encode('utf-8'), callback=self.acked)

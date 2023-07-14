@@ -1,2 +1,2 @@
-from .errorhandler import ErrorHandlerMiddleware
+from .errorhandler import ErrorHandlingMiddleware
 from .health import HealthCheckMiddleware

@@ -4,7 +4,7 @@ from .ievent import IEvent
 
 class IConsumer(ABC):
     @abstractmethod
-    def subscribe(self, topic: str, callback: Callable[[IEvent], None]) -> None:
+    def subscribe(self, topic: str) -> None:
         pass
 
     @abstractmethod

@@ -1,8 +1,7 @@
 import logging
 from django.http import JsonResponse, HttpResponseServerError
 
-logger = logging.getLogger("ashura_app")
-
+logger = logging.getLogger('default')
 
 class HealthCheckMiddleware(object):
     def __init__(self, get_response):

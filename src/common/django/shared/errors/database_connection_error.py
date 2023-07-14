@@ -10,4 +10,4 @@ class DatabaseConnectionError(CustomError):
         super().__init__(self.message)
 
     def serialize_errors(self) -> List[IErrorStruct]:
-        return [IErrorStruct(message=self.message).__dict__]
+        return [IErrorStruct(message=self.message).to_dict()]

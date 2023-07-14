@@ -7,9 +7,13 @@ class IErrorStruct:
     def __init__(self, message: str, field: Optional[str] = None):
         self.message = message
         self.field = field
+    
+    def to_dict(self):
+        return {
+            'message': self.message,
+            'field': self.field,
+        }
 
-    def toJson(self):
-        return json.dumps(self, default=lambda o: o.__dict__)
 
 
 class CustomError(Exception, ABC):
