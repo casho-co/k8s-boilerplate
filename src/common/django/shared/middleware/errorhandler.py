@@ -3,7 +3,7 @@ import logging
 from django.http import JsonResponse
 from ..errors.custom_error import CustomError
 
-logger = logging.getLogger("ashura_app")
+logger = logging.getLogger('default')
 
 
 class ErrorHandlingMiddleware:
