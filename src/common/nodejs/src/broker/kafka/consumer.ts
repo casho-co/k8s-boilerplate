@@ -1,6 +1,7 @@
 import { Kafka } from 'kafkajs';
 import { logger } from '../../lib/logger';
 import { IConsumer } from '../interfaces/iconsumer';
+import { topicsRegistry } from '../registry';
 import { IEvent } from '../interfaces/ievent';
 
 // Concrete implementation for a KafkaConsumer
@@ -11,12 +12,7 @@ export class KafkaConsumer implements IConsumer {
       brokers: [broker],
     });
   }
-  async subscribe(
-    topics: string[],
-    consumerGroup: string,
-    callback: (topic: string, event: IEvent) => void,
-    fromBeginning = true,
-  ): Promise<void> {
+  async subscribe(topics: string[], consumerGroup: string, fromBeginning = true): Promise<void> {
     const consumer = this.kafka.consumer({
       groupId: consumerGroup,
     });
@@ -37,7 +33,25 @@ export class KafkaConsumer implements IConsumer {
         //   value: message.value?.toString(),
         //   headers: message?.headers,
         // });
-        callback(topic, JSON.parse(message.value!.toString()));
+        const eventMessage = JSON.parse(message.value!.toString()) as IEvent;
+        logger.info(
+          `Message received: 
+          topic: ${topic}, 
+          event : ${eventMessage.eventType}, 
+          data: ${eventMessage.data}
+          createdAt: ${eventMessage.createdAt}`,
+        );
+        if (topic in topicsRegistry) {
+          const eventClass = topicsRegistry[topic];
+          const functionName = `consume_${eventMessage.eventType}`;
+          if (typeof eventClass[functionName] === 'function') {
+            eventClass[functionName](eventMessage);
+          } else {
+            logger.info(`Event type ${eventMessage.eventType} is not handled by this consumer`);
+          }
+        } else {
+          logger.info(`Topic ${topic} is not handled by this consumer`);
+        }
       },
     });
   }

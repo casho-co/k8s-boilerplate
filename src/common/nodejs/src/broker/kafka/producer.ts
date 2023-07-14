@@ -36,7 +36,7 @@ export class KafkaProducer implements IProducer {
     await this.producer
       .send(event)
       .then(() => {
-        logger.info(`Message sent to Kafka: ${message}`);
+        logger.info(`Message sent to Kafka: ${JSON.stringify(message)}`);
       })
       .catch((err) => {
         logger.error(`Error occurred while producing to Kafka: ${err.message}`);
