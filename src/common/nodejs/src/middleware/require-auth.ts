@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { logger } from '../lib/logger';
-import { NotValidError, NotAuthorizedError } from '../errors';
+import { NotAuthorizedError } from '../errors';
 
 interface UserPayload {
   uuid: string;
@@ -27,7 +27,7 @@ export const requireAuth = (req: Request, res: Response, next: NextFunction) => 
     req.currentUser = jwt.verify(token, process.env.JWT_KEY!) as UserPayload;
   } catch (err) {
     logger.error(`message: ${err}`);
-    throw new NotValidError();
+    throw new NotAuthorizedError('Invalid token');
   }
 
   next();

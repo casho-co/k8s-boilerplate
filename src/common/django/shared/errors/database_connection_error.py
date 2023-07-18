@@ -1,4 +1,4 @@
-from typing import Optional, List
+from typing import List
 from .custom_error import CustomError, IErrorStruct
 
 
