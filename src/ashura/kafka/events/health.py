@@ -9,7 +9,7 @@ class Health:
     
     @staticmethod
     def produce_check_health():
-        return 'check_health'
+        return 'CHECK_HEALTH'
     
     @staticmethod
     def consume_check_health(message: IEvent):

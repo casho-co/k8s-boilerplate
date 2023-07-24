@@ -40,7 +40,7 @@ class KafkaConsumer(IConsumer):
             )
             if message.topic() in topics_registry:
                 event_class = topics_registry[message_topic]
-                function_name = f"consume_{event_message.eventType}"
+                function_name = f"consume_{event_message.eventType.lower()}"
                 
                 if hasattr(event_class, function_name) and callable(getattr(event_class, function_name)):
                     getattr(event_class, function_name)(event_message)

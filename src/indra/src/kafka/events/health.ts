@@ -8,7 +8,7 @@ class Health {
   }
 
   static produce_check_health() {
-    return 'check_health';
+    return 'CHECK_HEALTH';
   }
 }
 

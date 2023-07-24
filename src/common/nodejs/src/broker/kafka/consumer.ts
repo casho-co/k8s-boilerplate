@@ -43,7 +43,7 @@ export class KafkaConsumer implements IConsumer {
         );
         if (topic in topicsRegistry) {
           const eventClass = topicsRegistry[topic];
-          const functionName = `consume_${eventMessage.eventType}`;
+          const functionName = `consume_${eventMessage.eventType.toLowerCase()}`;
           if (typeof eventClass[functionName] === 'function') {
             eventClass[functionName](eventMessage);
           } else {
