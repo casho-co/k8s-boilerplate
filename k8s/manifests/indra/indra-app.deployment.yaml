@@ -17,6 +17,7 @@ spec:
       containers:
         - name: indra
           image: indra/nodejs
+          args: ["start:inspect"]
           resources:
             limits:
               cpu: 500m

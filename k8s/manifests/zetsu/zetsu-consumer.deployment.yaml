@@ -36,6 +36,7 @@ spec:
       containers:
         - name: zetsu-consumer
           image: zetsu/nodejs
+          args: ["consumer"]
           resources:
             limits:
               cpu: 500m
@@ -43,7 +44,6 @@ spec:
             requests:
               cpu: 250m
               memory: 256Mi
-          command: ["npm","run","consumer"]
           envFrom:
             - configMapRef:
                 name: zetsu-config

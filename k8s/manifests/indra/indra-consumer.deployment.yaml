@@ -17,6 +17,7 @@ spec:
       containers:
         - name: indra-consumer
           image: indra/nodejs
+          args: ["consumer"]
           resources:
             limits:
               cpu: 500m
@@ -24,7 +25,6 @@ spec:
             requests:
               cpu: 250m
               memory: 256Mi
-          command: ['npm', 'run', 'consumer']
           envFrom:
             - configMapRef:
                 name: indra-config

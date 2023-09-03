@@ -36,6 +36,7 @@ spec:
       containers:
         - name: zetsu
           image: zetsu/nodejs
+          args: ["start:inspect"]
           resources:
             limits:
               cpu: 500m
