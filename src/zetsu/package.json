@@ -5,7 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "start:inspect": "nodemon src/index.ts",
-    "consumer": "ts-node src/kafka/consumer.ts",
+    "consumer": "nodemon src/kafka/consumer.ts",
     "build": "tsc && npm run lint",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --ext .ts --fix src"
