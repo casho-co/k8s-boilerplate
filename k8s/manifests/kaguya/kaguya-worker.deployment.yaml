@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kaguya-worker-deployment
+  labels:
+    app: kaguya-worker
+spec:
+  replicas: 1 # number of replicas to run
+  selector:
+    matchLabels:
+      app: kaguya-worker
+  template:
+    metadata:
+      labels:
+        app: kaguya-worker
+    spec:
+      initContainers:
+        - name: kaguya-db-check
+          image: mongo:5
+          command: ['/bin/bash', '-c', 
+            "until mongo 
+              --host $MONGO_HOST 
+              --port $MONGO_PORT 
+              --eval 
+              'quit(db.runCommand({ ping: 1 }).ok ? 0 : 1)' --quiet; 
+            do 
+              echo 'Waiting for MongoDB'; 
+              sleep 5; 
+            done;
+            echo 'MongoDB is ready!';"
+          ]
+          envFrom:
+            - configMapRef:
+                name: kaguya-config
+      containers:
+        - name: kaguya-worker
+          image: kaguya/nodejs
+          resources:
+            limits:
+              cpu: 750m
+              memory: 1024Mi
+            requests:
+              cpu: 500m
+              memory: 512Mi
+          args: ["worker"]
+          envFrom:
+            - configMapRef:
+                name: kaguya-config
+          env:
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: kaguya-secret
+                  key: MONGO_INITDB_ROOT_PASSWORD

@@ -32,6 +32,14 @@ build:
         manual:
           - dest: .
             src: "src/**/*.ts"
+    - image: kaguya/nodejs
+      context: src/kaguya
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: "src/**/*.ts"
 
 deploy:
   kubectl: {}

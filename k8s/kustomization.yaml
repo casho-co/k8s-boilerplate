@@ -5,21 +5,29 @@ resources:
   - ./kafka/kafka.yaml
   - ./kafka/zookeeper.yaml
 
-  - ./manifests/ashura/ashura-env.yaml
-  - ./manifests/zetsu/zetsu-env.yaml
-  - ./manifests/indra/indra-env.yaml
+  - ./redis/redis.yaml
 
-  - ./manifests/ashura/ashura-db.deployment.yaml
-  - ./manifests/zetsu/zetsu-db.deployment.yaml
+  # - ./manifests/ashura/ashura-env.yaml
+  # - ./manifests/zetsu/zetsu-env.yaml
+  - ./manifests/kaguya/kaguya-env.yaml
+  # - ./manifests/indra/indra-env.yaml
 
-  - ./manifests/ashura/ashura-db.job.yaml
+  # - ./manifests/ashura/ashura-db.deployment.yaml
+  # - ./manifests/zetsu/zetsu-db.deployment.yaml
+  - ./manifests/kaguya/kaguya-db.deployment.yaml
 
-  - ./manifests/indra/indra-app.deployment.yaml
-  - ./manifests/zetsu/zetsu-app.deployment.yaml
-  - ./manifests/ashura/ashura-app.deployment.yaml
+  # - ./manifests/ashura/ashura-db.job.yaml
 
-  - ./manifests/ashura/ashura-consumer.deployment.yaml
-  - ./manifests/zetsu/zetsu-consumer.deployment.yaml
-  - ./manifests/indra/indra-consumer.deployment.yaml
+  # - ./manifests/indra/indra-app.deployment.yaml
+  # - ./manifests/zetsu/zetsu-app.deployment.yaml
+  - ./manifests/kaguya/kaguya-app.deployment.yaml
+  # - ./manifests/ashura/ashura-app.deployment.yaml
+
+  # - ./manifests/ashura/ashura-consumer.deployment.yaml
+  # - ./manifests/zetsu/zetsu-consumer.deployment.yaml
+  - ./manifests/kaguya/kaguya-consumer.deployment.yaml
+  # - ./manifests/indra/indra-consumer.deployment.yaml
+
+  - ./manifests/kaguya/kaguya-worker.deployment.yaml
 
   - ./manifests/ingress.yaml

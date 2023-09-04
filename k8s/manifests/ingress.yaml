@@ -31,4 +31,11 @@ spec:
             name: zetsu-service
             port:
               number: 3010
+      - path: /api/kaguya/
+        pathType: Prefix
+        backend:
+          service:
+            name: kaguya-service
+            port:
+              number: 3020
   ingressClassName: nginx
