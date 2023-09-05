@@ -3,6 +3,7 @@ import { jobHandler, handleState } from './handler';
 import connectDB from '../database';
 import { logger } from '@cashoco/shared';
 import { QUEUES } from './queue';
+import '../kafka/events';
 
 connectDB();
 

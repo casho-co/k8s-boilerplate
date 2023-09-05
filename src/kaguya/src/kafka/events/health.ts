@@ -2,7 +2,7 @@ import { IEvent, logger, registerTopic } from '@cashoco/shared';
 import TOPICS from '../config';
 import { User } from '../../models/user';
 
-@registerTopic(TOPICS.HEALTH)
+@registerTopic(TOPICS.HEALTH) 
 class Health {
   static consume_check_health(message: IEvent) {
     logger.info(`Message received by handler: ${message.data}`);
@@ -11,9 +11,9 @@ class Health {
       email:'test@test.com'
     })
     user.save().then(()=>{
-      logger.info(`data added successfully`)
+      logger.info(`data added successfully into db`)
     }).catch((err)=>{
-      logger.info(JSON.stringify(err))
+      logger.error(err)
     })
   }
 

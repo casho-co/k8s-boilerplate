@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { logger, DatabaseConnectionError, topicsRegistry } from '@cashoco/shared';
+import { logger, DatabaseConnectionError } from '@cashoco/shared';
 
 export const ping = (req: Request, res: Response) => {
   logger.info(`request ID ${req.header('x-request-id')}`);
