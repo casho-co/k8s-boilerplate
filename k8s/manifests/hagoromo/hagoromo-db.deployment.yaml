@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: hagoromo-db-statefulset
+spec:
+  serviceName: "hagoromo-db-statefulset"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hagoromo-db
+  template:
+    metadata:
+      labels:
+        app: hagoromo-db
+    spec:
+      volumes:
+        - name: hagoromo-pv-storage
+          persistentVolumeClaim:
+            claimName: hagoromo-pvc
+      containers:
+        - name: mongodb
+          image: mongo:5
+          envFrom:
+            - configMapRef:
+                name: hagoromo-config
+          env:
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: hagoromo-secret
+                  key: MONGO_INITDB_ROOT_PASSWORD
+          ports:
+            - containerPort: 27017
+          volumeMounts:
+            - mountPath: /data/db
+              name: hagoromo-pv-storage
+          readinessProbe:
+            exec:
+              command:
+                - mongo
+                - --disableImplicitSessions
+                - --eval
+                - "db.adminCommand('ping')"
+            initialDelaySeconds: 5
+            timeoutSeconds: 2
+          livenessProbe:
+            exec:
+              command:
+                - mongo
+                - --disableImplicitSessions
+                - --eval
+                - "db.adminCommand('ping')"
+            initialDelaySeconds: 5
+            timeoutSeconds: 2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hagoromo-db-service
+spec:
+  selector:
+    app: hagoromo-db
+  ports:
+    - port: 27017
+      targetPort: 27017
+      protocol: TCP
+  type: ClusterIP
+
+

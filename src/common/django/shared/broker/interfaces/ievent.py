@@ -1,19 +1,21 @@
 from datetime import datetime
+
+
 class IEvent:
-    def __init__(self, eventType: str = None, data: any = None):
-        self.eventType = eventType
+    def __init__(self, event_type: str = None, data: any = None):
+        self.event_type = event_type
         self.data = data
-        self.createdAt = datetime.utcnow().strftime("%a, %d %b %Y %H:%M:%S GMT")
-        
+        self.created_at = datetime.utcnow().strftime("%a, %d %b %Y %H:%M:%S GMT")
+
     def to_dict(self):
         return {
-            'eventType': self.eventType,
+            'event_type': self.event_type,
             'data': self.data,
-            'createdAt': self.createdAt
+            'created_at': self.created_at
         }
-    
+
     def from_dict(self, data):
-        for field in ['eventType', 'data', 'createdAt']:
+        for field in ['event_type', 'data', 'created_at']:
             if field in data:
                 setattr(self, field, data[field])
         return self
