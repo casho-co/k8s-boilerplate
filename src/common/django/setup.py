@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='shared',
-    version='0.0.1',
+    version='0.0.2',
     description='common library for django services.',
     author='Jay ',
     author_email='jaykishan@playcent.com',
@@ -10,6 +10,6 @@ setup(
     python_requires='>=3.9',
     install_requires=[
         'Django>=4.1',
-        'confluent-kafka>=2.1.1'
+        'confluent-kafka>=2.1.1',
     ],
 )

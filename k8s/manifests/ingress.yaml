@@ -38,4 +38,11 @@ spec:
             name: kaguya-service
             port:
               number: 3020
+      - path: /api/hagoromo/
+        pathType: Prefix
+        backend:
+          service:
+            name: hagoromo-service
+            port:
+              number: 8010
   ingressClassName: nginx

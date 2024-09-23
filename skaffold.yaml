@@ -16,6 +16,14 @@ build:
         manual:
           - dest: .
             src: "**/*.py"
+    - image: hagoromo/python
+      context: src/hagoromo
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: "**/*.py"
     - image: indra/nodejs
       context: src/indra
       docker:
